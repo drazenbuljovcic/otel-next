@@ -44,7 +44,10 @@ const getExporterHeaders = () => {
 
   return {};
 };
-console.log({ getExporterHeaders: getExporterHeaders() });
+console.log({
+  url: process.env.NEXT_PUBLIC_OTEL_EXPORTER_OTLP_ENDPOINT,
+  getExporterHeaders: getExporterHeaders(),
+});
 
 const exporter = new OTLPTraceExporter({
   url: process.env.NEXT_PUBLIC_OTEL_EXPORTER_OTLP_ENDPOINT,

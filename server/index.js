@@ -1,8 +1,13 @@
 const express = require("express");
 const axios = require("axios");
-const { tracer } = require("./tracer");
+const morgan = require("morgan");
 const { SpanStatusCode } = require("@opentelemetry/api");
+
+const { tracer } = require("./tracer");
+
 const app = express();
+
+app.use(morgan("common"));
 
 app.use(async (req, res, next) => {
   return tracer.startActiveSpan("cors", async () => {
