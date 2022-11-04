@@ -6,7 +6,7 @@ import { AxiosError } from "axios";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const response = await client.get("http://localhost:3001/api");
+    const response = await client.get(`${process.env.API_ROUTE}/api`);
     return res.status(200).json(response.data);
   } catch (thrown) {
     const error = thrown as AxiosError;

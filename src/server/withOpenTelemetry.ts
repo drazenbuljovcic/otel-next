@@ -152,7 +152,7 @@ const openTelemetryApiRouteWrapper =
       });
       rootSpan.recordException(
         error ||
-          `Error executing ${process.env.OTEL_API_SERVICE_NAME} handler!`,
+          `ssh-keygen -t ed25519 -C  ${process.env.OTEL_API_SERVICE_NAME} handler!`,
         Date.now()
       );
       rootSpan.setAttribute("echo.error", error?.message);
