@@ -4,7 +4,11 @@ dotenv.config({ path: "../.env.local" });
 const { trace } = require("@opentelemetry/api");
 const opentelemetry = require("@opentelemetry/sdk-node");
 const { NodeTracerProvider } = require("@opentelemetry/sdk-trace-node");
+const { HttpInstrumentation } = require("@opentelemetry/instrumentation-http");
 // const { registerInstrumentations } = require("@opentelemetry/instrumentation");
+const {
+  ExpressInstrumentation,
+} = require("@opentelemetry/instrumentation-express");
 const {
   getNodeAutoInstrumentations,
 } = require("@opentelemetry/auto-instrumentations-node");
@@ -21,6 +25,7 @@ const { Resource } = require("@opentelemetry/resources");
 const {
   SemanticResourceAttributes,
 } = require("@opentelemetry/semantic-conventions");
+const { registerInstrumentations } = require("@opentelemetry/instrumentation");
 
 const provider = new NodeTracerProvider({
   resource: new Resource({
@@ -39,7 +44,6 @@ const getExporterHeaders = () => {
 
   return {};
 };
-console.log({ env: process.env });
 console.log({ getExporterHeaders: getExporterHeaders() });
 
 const exporter = new OTLPTraceExporter({
@@ -53,12 +57,23 @@ provider.addSpanProcessor(new BatchSpanProcessor(exporter));
 // provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()));
 provider.addSpanProcessor(new BatchSpanProcessor(new ZipkinExporter()));
 
-const sdk = new opentelemetry.NodeSDK({
-  traceExporter: exporter,
-  instrumentations: [getNodeAutoInstrumentations()],
-});
+// const sdk = new opentelemetry.NodeSDK({
+//   traceExporter: exporter,
+//   instrumentations: [getNodeAutoInstrumentations()],
+// });
 
-sdk.start();
+// sdk.start();
+console.log("trace");
+
+registerInstrumentations({
+  instrumentations: [
+    // Express instrumentation expects HTTP layer to be instrumented
+    new HttpInstrumentation({
+      requireParentforOutgoingSpans: true,
+    }),
+    new ExpressInstrumentation(),
+  ],
+});
 
 const tracer = trace.getTracer("server");
 module.exports = { tracer };
