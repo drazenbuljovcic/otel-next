@@ -29,7 +29,8 @@ export interface HttpClientResponse extends AxiosResponse {
 }
 
 const attachOpenTelemetryInterceptors = (clientInstance: AxiosInstance) => {
-  clientInstance.interceptors.request.use((config: HttpRequestConfig) => {
+  clientInstance.interceptors.request.use((reqConfig) => {
+    const config = reqConfig as HttpRequestConfig;
     const tracer = trace.getTracer(process.env.OTEL_API_SERVICE_NAME as string);
     const parentContext = context.active();
     const span = tracer.startSpan(
@@ -48,12 +49,12 @@ const attachOpenTelemetryInterceptors = (clientInstance: AxiosInstance) => {
     span.setAttribute("net.peer.name", new URL(config.url as string).host);
     // setOrgSpanAttributes(span);
     const requestContext = trace.setSpan(parentContext, span);
-    const headers = {};
+    const headers: Record<string, string> = {};
     propagation.inject(requestContext, headers);
     Object.keys(headers).forEach((key) => {
       config.headers = {
         ...config.headers,
-        [key]: headers[key],
+        [key]: headers[key] as string,
       };
     });
     config.tracingSpan = span;
@@ -62,7 +63,8 @@ const attachOpenTelemetryInterceptors = (clientInstance: AxiosInstance) => {
   });
 
   clientInstance.interceptors.response.use(
-    (response: HttpClientResponse) => {
+    (resConfig) => {
+      const response = resConfig as HttpClientResponse;
       const requestSpan = (response?.config as HttpRequestConfig).tracingSpan;
 
       requestSpan.setStatus({
@@ -74,8 +76,6 @@ const attachOpenTelemetryInterceptors = (clientInstance: AxiosInstance) => {
     },
     (error: AxiosError) => {
       if (process.env.ENVIRONMENT === "production") {
-        // captureException(error);
-
         const requestSpan = (error.response?.config as HttpRequestConfig)
           .tracingSpan;
 
