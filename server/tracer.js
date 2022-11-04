@@ -4,19 +4,10 @@ dotenv.config({ path: "../.env.local" });
 const { trace } = require("@opentelemetry/api");
 const opentelemetry = require("@opentelemetry/sdk-node");
 const { NodeTracerProvider } = require("@opentelemetry/sdk-trace-node");
-const { HttpInstrumentation } = require("@opentelemetry/instrumentation-http");
-// const { registerInstrumentations } = require("@opentelemetry/instrumentation");
-const {
-  ExpressInstrumentation,
-} = require("@opentelemetry/instrumentation-express");
 const {
   getNodeAutoInstrumentations,
 } = require("@opentelemetry/auto-instrumentations-node");
-const {
-  BatchSpanProcessor,
-  SimpleSpanProcessor,
-  ConsoleSpanExporter,
-} = require("@opentelemetry/sdk-trace-base");
+const { BatchSpanProcessor } = require("@opentelemetry/sdk-trace-base");
 const { ZipkinExporter } = require("@opentelemetry/exporter-zipkin");
 const {
   OTLPTraceExporter,
@@ -57,25 +48,10 @@ const exporter = new OTLPTraceExporter({
 });
 
 provider.addSpanProcessor(new BatchSpanProcessor(exporter));
-// provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()));
 provider.addSpanProcessor(new BatchSpanProcessor(new ZipkinExporter()));
 
-// const sdk = new opentelemetry.NodeSDK({
-//   traceExporter: exporter,
-//   instrumentations: [getNodeAutoInstrumentations()],
-// });
-
-// sdk.start();
-console.log("trace");
-
 registerInstrumentations({
-  instrumentations: [
-    // Express instrumentation expects HTTP layer to be instrumented
-    new HttpInstrumentation({
-      requireParentforOutgoingSpans: true,
-    }),
-    new ExpressInstrumentation(),
-  ],
+  instrumentations: [getNodeAutoInstrumentations()],
 });
 
 const tracer = trace.getTracer("server");
