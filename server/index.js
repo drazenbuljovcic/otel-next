@@ -29,9 +29,9 @@ app.get("/api", async (req, res) => {
       console.log({ headers: req.headers });
       res.status(200).send({ data: apiRes.data });
     } catch (thrown) {
-      // span.setStatus({
-      //   code: SpanStatusCode.error,
-      // });
+      span.setStatus({
+        code: SpanStatusCode.error,
+      });
       const error = thrown;
       console.error(error);
     } finally {

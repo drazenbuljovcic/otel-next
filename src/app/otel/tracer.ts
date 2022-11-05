@@ -64,7 +64,6 @@ if (
     if (process.env.NEXT_PUBLIC_OTEL_EXPORTER_OTLP_ENDPOINT) {
       return {
         "x-honeycomb-team": process.env.NEXT_PUBLIC_OTEL_API_KEY,
-        "x-honeycomb-dataset": process.env.NEXT_PUBLIC_OTEL_DATASET,
       };
     }
 
