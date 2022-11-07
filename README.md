@@ -24,10 +24,14 @@ $ docker run --rm -d -p 9411:9411 --name zipkin openzipkin/zipkin
 ⋅ Press the `Trace` button and find the request `/api` in the network devtools
 ⋅ Obtain the `trace_id` | header **traceparent**: 00-**dd0530acd5e4e85d4d7c69c8a3df6d71**-ae543dd039963173-01
 
+---
+
 The tool that can be used to preview the waterfall information is [honeycomb](https://www.honeycomb.io). Honeycomb is a cloud solution that brings a lot value to development teams, and whole engineering organizations. It provides additional benefits to whole distributed systems observability stack by defining SLOs and Error budgets that can route alerts to SRE tools like OpsGenie.
 Additionally, this tool is great for rapid iterative debugging in cases of production issues.
 
 <img width="994" alt="image" src="https://user-images.githubusercontent.com/18490172/200162826-595bff8f-109f-4f97-8d9f-d5cfb4bf0fec.png">
+
+Attributes that are attached to certain spans can provide information about the specific process that was running at the time - like attaching ids that were generated or pieces of output which was produced.
 
 > [Preview env](https://ui.honeycomb.io/zeen-obs/environments/test/result/3mELDaaStQR?tab=raw)
 > _please ask for access_
