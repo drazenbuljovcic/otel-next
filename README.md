@@ -1,5 +1,7 @@
 # Next.js instrumentation POC
 
+### Please check the [issue](https://github.com/drazenbuljovcic/otel-next/issues/1) for motivation
+
 <img width="582" alt="image" src="https://user-images.githubusercontent.com/18490172/200163757-06253dfb-764a-485b-9445-26d5b6f2e704.png">
 
 > [We have a deployed client application](https://otel-next.vercel.app)
