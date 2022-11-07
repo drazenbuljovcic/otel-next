@@ -27,4 +27,5 @@ $ docker run --rm -d -p 9411:9411 --name zipkin openzipkin/zipkin
 <img width="994" alt="image" src="https://user-images.githubusercontent.com/18490172/200162826-595bff8f-109f-4f97-8d9f-d5cfb4bf0fec.png">
 
 > Powered by [honeycomb](https://www.honeycomb.io)
+
 > [Preview env](https://ui.honeycomb.io/zeen-obs/environments/test/result/3mELDaaStQR?tab=raw)
