@@ -39,6 +39,4 @@ Attributes that are attached to certain spans can provide information about the 
 
 > [Preview env](https://ui.honeycomb.io/zeen-obs/environments/test/result/3mELDaaStQR?tab=raw)
 
-<span style="color:red">Unfortunately honeycomb does not have publicly shareable dashboard displaying traces</span>
-
-| Please reach out to me for assistance
+<font color='red'> 🔴 Unfortunately honeycomb does not have publicly shareable dashboard displaying traces</font>
