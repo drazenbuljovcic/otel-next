@@ -38,6 +38,8 @@ Additionally, this tool is great for rapid iterative debugging in cases of produ
 
 Attributes that are attached to certain spans can provide information about the specific process that was running at the time - like attaching ids that were generated or pieces of output which was produced.
 
+**NOTE** The request will also fail in order to be able to present the possibility of attaching error information directly to the span - including log information on what happened for further debugging
+
 > [Preview env](https://ui.honeycomb.io/zeen-obs/environments/test/result/3mELDaaStQR?tab=raw)
 >
 > 🔴 Unfortunately honeycomb does not support publicly shareable dashboard displaying traces</font>
