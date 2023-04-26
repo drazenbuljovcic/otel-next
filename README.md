@@ -27,6 +27,7 @@ $ docker run --rm -d -p 9411:9411 --name zipkin openzipkin/zipkin
 
 ⋅ Press the `Trace` button and find the request `/api` in the network devtools
 ⋅ Obtain the `trace_id` | header **traceparent**: 00-_**dd0530acd5e4e85d4d7c69c8a3df6d71**_-ae543dd039963173-01
+⋅ Please also check the developer console in which you can observe the details of the created span
 
 ---
 
@@ -38,7 +39,4 @@ Additionally, this tool is great for rapid iterative debugging in cases of produ
 Attributes that are attached to certain spans can provide information about the specific process that was running at the time - like attaching ids that were generated or pieces of output which was produced.
 
 > [Preview env](https://ui.honeycomb.io/zeen-obs/environments/test/result/3mELDaaStQR?tab=raw)
-```html
-<font color='red'> 🔴 Unfortunately honeycomb does not support publicly shareable dashboard displaying traces</font>
-```
-
+> 🔴 Unfortunately honeycomb does not support publicly shareable dashboard displaying traces</font>
